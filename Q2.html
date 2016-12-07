@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Calculator</title>
+        <meta name="HW5" content="calculator">
+    </head>
+    <body>
+        
+        <h1>This web site will find the volume for a Cylinder, Sphere or Cone</h1>
+        <form id="form1" name = "f1">
+            <p>Select the units (English or SI)</p>
+            <input type="radio" name="unit" value = "0" checked>English
+            <input type="radio" name="unit" value = "1" >SI
+       
+        
+        <div class="pulldown">
+            <p>Select the shape
+                <select id = "SelectShape" onclick="setshape()">
+                      <option value="1">Cylinder</option>
+                      <option value="2">Sphere</option>
+                      <option value="3">Cone</option>
+                </select>
+            </p>
+        </div>
+
+        Enter the radius <input type="text" name="radius"><br>
+        For the cylinder and cone, Enter the height <input type="text" id="height"><br>
+        <button onclick="reset()" >reset the form</button>
+        </form>
+        
+        <form id="form2" name = "f2">
+        <h2>Results</h2>
+        <p id="UnitResult"></p>
+        <p id="ShapeResult"></p>
+        <table border="1">
+            <tr>
+                <th>Shape</th>
+                <th>Radius</th>
+                <th>Height</th>
+                <th>Volumes</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type=text name = "r22" size=10></td>
+                <td><input type=text name = "r23" size=10></td>
+                <td><input type=text name = "r24" size=10></td>
+            </tr>
+            <tr>
+                <th><input type=text name = "r31" size=10></th>
+                <th><input type=text name = "r32" size=10></th>
+                <th><input type=text name = "r33" size=10></th>
+                <th><input type=text name = "r34" size=10></th>
+            </tr>
+        </table>
+        </form>
+        <button onclick="calculate()" >Click to calculate the results</button>
+                        <script>
+            
+            function reset(){
+                document.getElementById("form1").reset();
+                document.getElementById("form2").reset();
+            }
+            
+            function calculate(){
+                document.getElementById("form2").reset();
+               for(var i=0;i<2;i++)
+                {
+                    if(document.f1.unit[i].checked==true)
+                    {
+                        if(i==0)
+                        {
+                            document.f2.r22.value="(ft)";
+                            if(document.getElementById("SelectShape").value != 2)
+                                document.f2.r23.value="(ft)";
+                            document.f2.r24.value="(ft^3)";
+                            document.getElementById("UnitResult").innerHTML="You selected to use English units"
+                           
+                        }
+                        if(i==1)
+                        {
+                            document.f2.r22.value="(m)";
+                            if(document.getElementById("SelectShape").value != 2)
+                                document.f2.r23.value="(m)";
+                            document.f2.r24.value="(m^3)";
+                            document.getElementById("UnitResult").innerHTML="You selected to use SI units"
+                        }
+                    }
+                }
+                var a=parseFloat(document.f1.radius.value);
+                var b=parseFloat(document.f1.height.value);
+                var s;
+                
+                switch(parseInt(document.getElementById("SelectShape").value))
+                    {
+                        case 1:
+                            s=3.14159*a*a*b;
+                            String(s);
+                            document.getElementById("ShapeResult").innerHTML="You selected to find the values for a Cylinder shape";
+                            document.f2.r31.value="Cylinder";
+                            document.f2.r32.value = a;
+                            document.f2.r33.value = b;
+                            break;
+                        case 2:
+                            s=4/3*3.14159*a*a;
+                            String(s);
+                             document.getElementById("ShapeResult").innerHTML="You selected to find the values for a Sphere shape";
+                            document.f2.r31.value="Sphere";
+                            document.f2.r32.value = a;
+                            break;
+                        case 3:
+                            s=3.14159*a*a*b/3;
+                            String(s);
+                             document.getElementById("ShapeResult").innerHTML="You selected to find the values for a Cone shape";
+                            document.f2.r31.value="Cone"; 
+                            document.f2.r32.value = a;
+                            document.f2.r33.value = b;
+                            break;
+                    }
+                document.f2.r34.value = s;
+            }  
+            function set(){
+                if(document.f1.unit.value == 0){
+                    document.f2.r22.value="(ft)";
+                    if(document.getElementById("SelectShape").value != 2)
+                    document.f2.r23.value="(ft)";
+                    document.f2.r24.value="(ft^3)";
+                    document.getElementById("UnitResult").innerHTML="You selected to use English units"
+                }
+                else if(document.f1.unit.value == 1){
+                    document.f2.r22.value="(m)";
+                    if(document.getElementById("SelectShape").value != 2)
+                    document.f2.r23.value="(m)";
+                    document.f2.r24.value="(m^3)";
+                    document.getElementById("UnitResult").innerHTML="You selected to use SI units"
+                }
+                if(document.getElementById("SelectShape").value == 1)
+                    document.getElementById("ShapeResult").innerHTML="You selected to find the values for a Cylinder shape";
+                else if(document.getElementById("SelectShape").value == 2)
+                    document.getElementById("ShapeResult").innerHTML="You selected to find the values for a Sphere shape";
+                else if(document.getElementById("SelectShape").value == 3)
+                    document.getElementById("ShapeResult").innerHTML="You selected to find the values for a Cone shape";
+                
+            }
+            setInterval("set()",5)
+                
+        </script>
+        
+  
+        
+    </body>
+</html>
